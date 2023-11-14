@@ -205,7 +205,8 @@ def upcoming_events():
     #Convert the numpy array into a pandas DataFrame using events_list as the data and indices as the column names
     events_list = pd.DataFrame(data=events_list, columns=indices)
 
-    print(events_list)
+    # Drop all rows with empty cells
+    events_list = events_list.dropna()
 
     #Convert the month from name to a zero-padded number
     events_list['Month'] = events_list['Month'].apply(lambda x: datetime.strptime(x, '%B').strftime('%m'))

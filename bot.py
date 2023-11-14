@@ -216,6 +216,8 @@ def upcoming_events():
     # current_date = datetime.now().strftime("%m/%d/%Y")
     current_date = '09/12/2023'
 
+    print(events_list)
+
     #Filter the events list to only include events that have not passed yet
     events_list = events_list[events_list['Date'] >= current_date]
 

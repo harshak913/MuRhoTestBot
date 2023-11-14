@@ -527,7 +527,10 @@ def budget_sheet():
     conn.close()
     if budget_url is None:
         return 'I don\'t have access to the budget sheet. Please check with the VPF.'
-    return f'Here\'s the link to the chapter budget: {budget_url}'
+    else:
+        budget_url = budget_url.split('https')
+        budget_url = 'https:' + budget_url[1]
+        return f'Here\'s the link to the chapter budget: {budget_url}'
 
 # Create a background scheduler
 scheduler = BackgroundScheduler()

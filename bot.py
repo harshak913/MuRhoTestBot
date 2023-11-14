@@ -205,21 +205,19 @@ def upcoming_events():
     #Convert the numpy array into a pandas DataFrame using events_list as the data and indices as the column names
     events_list = pd.DataFrame(data=events_list, columns=indices)
 
-    # Drop all rows with empty cells
-    events_list = events_list.dropna(axis=0, how='all')
-
-    print(events_list)
+    # Drop all rows with empty cells across all columns
+    events_list.dropna(axis=0, how='all', inplace=True)
 
     #Convert the month from name to a zero-padded number
-    events_list['Month'] = events_list['Month'].apply(lambda x: datetime.strptime(x, '%B').strftime('%m'))
+    events_list['Month'] = events_list['Month'].apply(lambda x: datetime.strptime(x, '%B').strftime('%m') if x else '')
 
     #Add the date & strip the last 2 characters & convert to a zero-padded number
     events_list['Date'] = events_list['Date'].apply(lambda x: x[:-2].zfill(2))
 
-    # Add the current year to the date column
-    events_list['Date'] = f"{events_list['Month']}/" + events_list['Date'] + f'/{datetime.now().year}'
-    # current_date = datetime.now().strftime("%m/%d/%Y")
-    current_date = '09/12/2023'
+    # Add the current year to the concatenated month & date columns in the form MM/DD/YYYY
+    events_list['Date'] = events_list['Month'] + '/' + events_list['Date'] + '/' + datetime.now().strftime("%Y")
+
+    current_date = datetime.now().strftime("%m/%d/%Y")
 
     #Filter the events list to only include events that have not passed yet
     events_list = events_list[events_list['Date'] >= current_date]
@@ -410,6 +408,15 @@ def todays_event():
 
     #Convert the numpy array into a pandas DataFrame using events_list as the data and indices as the column names
     events_list = pd.DataFrame(data=events_list, columns=indices)
+
+    #Convert the month from name to a zero-padded number
+    events_list['Month'] = events_list['Month'].apply(lambda x: datetime.strptime(x, '%B').strftime('%m') if x else '')
+
+    #Add the date & strip the last 2 characters & convert to a zero-padded number
+    events_list['Date'] = events_list['Date'].apply(lambda x: x[:-2].zfill(2))
+
+    # Add the current year to the concatenated month & date columns in the form MM/DD/YYYY
+    events_list['Date'] = events_list['Month'] + '/' + events_list['Date']
 
     #Add the current year to the date column
     current_date = datetime.now().strftime("%m/%d")

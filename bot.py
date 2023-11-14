@@ -196,8 +196,8 @@ def upcoming_events():
     #Extract the upcoming events from the Google Sheet
     events_calendar = sa.open_by_url(events_url).worksheet("Semester Calendar")
 
-    #Grab all events from the Google Sheet and convert first 6 columns into a numpy array, ignoring the first 2 rows
-    events_list = np.array(events_calendar.get_all_values()[2:])[:,:6]
+    #Grab all events from the Google Sheet and convert first 6 columns into a numpy array, ignoring the first 3 rows
+    events_list = np.array(events_calendar.get_all_values()[3:])[:,:6]
 
     #Grab the first row of the Google Sheet as indices for the events list
     indices = events_calendar.get_all_values()[0][:6]

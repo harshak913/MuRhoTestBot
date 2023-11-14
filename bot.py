@@ -234,18 +234,12 @@ def upcoming_events():
 
 #Return the chapter zoom link from pinned messages
 def chapter_zoom():
-    channels = client.conversations_list(types='public_channel,private_channel')['channels']
-    channel_id = None
-    #Change channel to murho_meeting-links later
-    for channel in channels:
-        if channel['name'] == 'slack-bot':
-            channel_id = channel['id']
-            break
-    
-    pinned_messages = client.pins_list(channel=channel_id)['items']
-    for message in pinned_messages:
-        if 'zoom meeting' in message['message']['text'].lower():
-            return message['message']['text'] 
+    link = '*Join Zoom Meeting*\n'
+    link += 'Meeting ID: 424 105 2010\n'
+    link += 'Password: akpsimurho\n'
+    link += 'https://us02web.zoom.us/j/4241052010?pwd=d3JKMC9kUHhRZnVmN0ZLR1VrTXRqUT09'
+
+    return link
         
 def ritual_attendance(user_id):
     #Grab the roster url from the database

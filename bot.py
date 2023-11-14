@@ -208,6 +208,8 @@ def upcoming_events():
     # Drop all rows with empty cells
     events_list = events_list.dropna()
 
+    print(events_list)
+
     #Convert the month from name to a zero-padded number
     events_list['Month'] = events_list['Month'].apply(lambda x: datetime.strptime(x, '%B').strftime('%m'))
 

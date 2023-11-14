@@ -206,7 +206,7 @@ def upcoming_events():
     events_list = pd.DataFrame(data=events_list, columns=indices)
 
     # Drop all rows with empty cells
-    events_list = events_list.dropna()
+    events_list = events_list.dropna(axis=0, how='all')
 
     print(events_list)
 

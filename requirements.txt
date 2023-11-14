@@ -20,3 +20,4 @@ dadjokes==1.3.2
 better_profanity==0.7.0
 apscheduler==3.10.1
 randfacts==0.20.2
+gunicorn==20.1.0

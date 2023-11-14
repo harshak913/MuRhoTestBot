@@ -489,6 +489,12 @@ def roster_df(roster_url, index, worksheets, user_id):
     #Filter the req list according to the user's name (from user id)
     first_name = client.users_info(user=user_id)['user']['profile']['real_name'].split()[0].strip()
     req_list = req_list[req_list.iloc[:, 0].str.lower().str.contains(first_name.lower(), flags=re.IGNORECASE, regex=True)]
+
+    # If the worksheet name has 'chapter attendance' in it, return the dataframe with the last column dropped
+    if 'chapter attendance' in worksheets[index].title.lower():
+        req_list = req_list.iloc[:, :-1]
+    elif 'ritual' in worksheets[index].title.lower():
+        req_list = req_list.iloc[:, :-1]
     
     #If the dataframe has more than 1 entry:
     if len(req_list) > 1:

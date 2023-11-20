@@ -472,17 +472,17 @@ def in_list(text, keywords):
 def db_logic(column_to_update, text):
     conn = open_connection()
     c = conn.cursor()
-    c.execute(f'''UPDATE links SET {column_to_update} = "{text}"''')
 
     #Check if id = 1 exists in the links table
     c.execute('''SELECT * FROM links WHERE id = 1''')
     if c.fetchone() is None:
         #Insert a new row into the links table
         c.execute(f'''INSERT INTO links ({column_to_update}) VALUES ("{text.split(':')[1].replace('<', '').strip() + text.split(':')[2].replace('>', '').strip()}")''')
+        conn.commit()
     else:
         #Update the events calendar link in the database for the entry id = 1
         c.execute(f'''UPDATE links SET {column_to_update} = "{text.split(':')[1].replace('<', '').strip() + text.split(':')[2].replace('>', '').strip()}" WHERE id = 1''')
-    conn.commit()
+        conn.commit()
     conn.close()
 
 #Refactor roster dataframe creation into a single function

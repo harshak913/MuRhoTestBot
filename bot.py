@@ -69,7 +69,7 @@ def message(payload):
             #Let the user know the bot is working on the request
             send_chat_message(channel=channel_id, text="Give me a few seconds to fetch the data...")
             send_chat_message(channel=channel_id, text=upcoming_events())
-        elif in_list(text, ['update the events calendar', 'update events calendar', 'update calendar', 'update calendar of event', 'update event']):
+        elif in_list(text, ['update the events calendar', 'update events calendar', 'update calendar', 'update calendar of event', 'update event', 'update the event']):
             if 'Harsha' in client.users_info(user=user_id)['user']['profile']['real_name']:
                 db_logic("events_url", text)
                 send_chat_message(channel=channel_id, text="Updated the events calendar link for you :slightly_smiling_face:\nAll user queries will now use this updated link!")
